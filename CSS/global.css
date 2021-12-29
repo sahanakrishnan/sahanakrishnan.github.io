@@ -1,0 +1,168 @@
+.button {
+    background-color: #053861; 
+    border: none;
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}  
+.buttonclear {
+    background-color: white; 
+    color: black;
+}
+.buttonprint {
+    background-color: lightblue; 
+    color: black;
+    padding-top: 2px;
+    padding-bottom: 2px;    
+    box-shadow: 0 8px 16px 0 rgba(173, 216, 230, 0.2), 0 6px 20px 0 rgba(173, 216, 230, 0.2);
+}
+.button:hover {
+    background-color: #4c6a73;
+    color: white;
+} 
+
+table.dataTable {
+    border: 1px solid #bdbaba;
+}
+
+div#header {
+    background-color: #053861;
+}
+
+img#logo {
+    width: 120px;
+    height: 47px;
+    float: left;
+}
+div#title {
+    font-size: 32px;
+    font-weight: bold;
+    color:#FFFFFF;
+} 
+div#subtitle {
+    font-size: 20px;
+    font-weight: bold;
+} 
+div#print {
+	color:#FFFFFF;
+	font-size:27px;
+	background-color: #053861;
+	float: right;
+	vertical-align:bottom;
+	padding-top: 5px;
+}
+
+button#csv {
+	color:#FFFFFF;
+    font-size:27px;
+    background-color:#036b37;
+}
+
+
+body {
+    background-color: lightblue;
+}
+
+.center {
+       text-align: center;
+}
+#frmCadastre{
+   padding-left: 50px;
+   /* padding-top: 25px; */
+}
+img.imgdetail {
+    width: 24px;
+    height: 24px;
+    cursor:pointer;
+}
+#btnSave{
+    margin-top: 25px;
+    margin-left: 50px;
+}
+#btnClear{
+    margin-top: 25px;
+    margin-left: 50px;
+}
+div#worklist_info {
+    visibility: hidden;
+}
+
+div#worklist_filter {
+    visibility: hidden;
+}
+
+span.error {
+    color: red;
+    font-style: italic;
+}
+
+#example th {
+    text-align: left;
+    background-color: lightblue;
+}
+table.printTableStyle {
+    font-family: verdana,arial,sans-serif;
+    font-size: 11px;
+    color: #333333;
+    border-width: 1px;
+    border-color: #666666;
+    border-collapse: collapse;
+    margin-left: 50px;
+    min-width: 600px;
+}
+table.printTableStyle th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #053861;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+table.printTableStyle td {
+    background-color: #036b37;
+}
+table.printTableStyle td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+}
+table.printTableStyle td {
+    text-align: center;
+}
+table.printTableStyle td.odd {
+    background-color: #a3ccd9;
+}
+table.printTableStyle td.even {
+    background-color: #add8e6;
+}
+div#printTitle {
+    font-size: 20px;
+    font-weight: bold;
+}
+label{
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: bold;
+}
+#btnPrint{
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+#frmCadastre input[type=text], input[type=number], input[type=date], select{
+    width: 160px
+}

@@ -1,0 +1,288 @@
+<html>
+	<head>
+		<script src="JS/jquery-1.12.3.js"></script>
+		<script src="JS/jquery.dataTables.min.js"></script>
+		<script src="JS/global.js"></script>
+		<script src="JS/csv.js"></script>
+		<link rel="stylesheet" type="text/css" href="CSS/jquery.dataTables.min.css"/>
+		<link rel="stylesheet" type="text/css" href="CSS/global.css"/>
+		<script>
+		// INIT LOAD FOR PAGE				
+				// GET PARAMATERS ID & NAME FROM URL
+				var id = getQueryString("id");
+				var name = getQueryString("name");
+				var communityServObject = {
+					"5421": [
+								[12, "Medical", "2020-01-15"],
+								[2, "Animal", "2020-01-18"],
+							],
+					"8422": [
+								[12, "Medical", "2020-02-15"],
+								[2,  "Church", "2020-01-18"],
+							],
+					"8423": [
+								[12, "Church", "2020-03-15"],
+								[2,  "Animal", "2020-01-19"],
+							],
+				};
+				
+				// GET DATA communityService FROM LOCAL STORAGE or COOKIE 
+				communityServObject = getData("communityService", {});
+				//IF NULL INITIALIZE IT TO ARRAY []
+				if( checkNull(origDataSet)){
+					origDataSet = [];
+				}					
+				// IF DATA IS EMPTY INITIALIZE IT A OBJECT {}.				
+				if( checkNull(communityServObject)){
+					communityServObject = {};
+				}
+				// GET DATA FOR ID IN URL 
+				var origDataSet = communityServObject[id]; 
+				// IF DATA IS EMPTY INITIALIZE IT A ARRAY [].				
+				if( checkNull(origDataSet)){
+					origDataSet = [];
+					communityServObject[id] = origDataSet
+				}				
+				var dataSet = [];
+				// CALL FN TO FORMAT communityService TO WORK WITH DATATABLES.
+				resetDataSet();
+				// WILL BE CALLED WHEN PAGE IS LOADED
+				$(document).ready(function() {
+					$("#id").text(id);
+					$("#name").text(name);
+					setDataSource();
+				} );
+		// END OF INIT LOAD FOR PAGE				
+		// REFORMAT and SET DATASOURCE	
+				// FN RESET Global variables dataSet
+				function resetDataSet(){
+					var arrayDataset = []
+					communityServObject[id] = origDataSet;
+
+					// CALL FN TO SAVE communityService TO LOCAL STORAGE OR COOKIES.
+					setData("communityService", communityServObject)
+					for (var i = 0; i < origDataSet.length; i++) {
+						// CALL FN TO GET ICON INFO.						
+						var icons = setIcons(i);
+						var detail = icons.detail;
+						var edit =   icons.edit;
+						var del =    icons.del;
+						var arr = JSON.parse(JSON.stringify(origDataSet[i]));
+						// ADD ICONS TO END OF ARRAY.
+						arr.push(del);
+						arr.push(edit);
+						// ADD ARRAY TO LIST OF communityServices for ID.						
+						arrayDataset.push(arr);
+					}
+					// RESET GLOBAL VARIABLE dataSet WITH LOCAL VARIABLE.
+				 	dataSet = arrayDataset;
+				}
+				// FN TO SET DATASOURCE AND CREATE DATATABLE.
+				function setDataSource(){
+					table = $('#example').DataTable( {
+									data: dataSet,
+									"iDisplayLength": 5,
+									"lengthMenu": [[5, 10, -1], [5, 10, "All"]],
+									columns: [
+										{ title: "Hours" },
+										{ title: "Type" },
+										{ title: "Date" },
+										{ title: "Delete" }, // ICON COLUMN TO DELETE USER will call handleClick with type Delete
+										{ title: "Edit" }, // ICON COLUMN TO POPULATE FORM BELOW TABLE. It will call handleClick with type EDIT
+									]
+								} );
+				}					
+				// FN TO RESET DATA & RECREATE AND CREATE DATATABLE.
+				function reloadData(){
+					$('#example').DataTable().clear().destroy();					
+					setDataSource();		
+				}	
+		// REFORMAT and SET DATASOURCE	
+		// FUNCTIONS FOR FORM RELATED ACTIVITY			
+				// RESET VALUES IN FORM AND ERROR FIELDS
+				function formClear() {
+					// RESET VALUES IN FORM FIELDS
+					$("#txtRow").val("");
+					$("#txtHours").val("");
+					$("#txtDate").val("");
+					$("#txtType").val("");
+					$("#txtDelete").val("");
+					$("#txtEdit").val("");					
+
+					//RESET ERROR FIELDS
+					$("#errorHours").text("");
+					$("#errorDate").text("");
+					$("#errorType").text("");					
+
+				}			
+				// VALIDATE FORM ENTRY				
+				function validate(){
+					//RESET ERROR FIELDS
+					$("#errorHours").text("");
+					$("#errorDate").text("");
+					$("#errorType").text("");		
+
+					//GET USER ENTERED VALS
+					var hours = $("#txtHours").val();
+					var type = $("#txtType").val();
+					var dateVal = $("#txtDate").val();
+					var error = false;
+					var requiredMessage="This field is required."
+					if(checkNull(hours) ){
+						error = true;
+						$("#errorHours").text(requiredMessage);
+					} else{
+						if( hours <= 0){
+							error = true;
+							$("#errorHours").text("Hours should be greater than 0");
+						}
+					}	
+					if(checkNull(type) ){
+						error = true;
+						$("#errorType").text(requiredMessage);
+					}
+
+					if(checkNull(dateVal) ){
+						error = true;
+						$("#errorDate").text(requiredMessage);
+					} else{
+						var ret = validateAndgetdate(dateVal);
+						if(!ret["valid"]){
+							error = true;
+							$("#errorDate").text("Date format has to be mm/dd/yyyy or yyyy-mm-dd");
+						}
+					}			
+					return error;							
+				}				
+				// SAVE DATA IN FORM. *** CALLED BY SAVE BUTTON
+				function saveData() {
+					// VALIDATE FORM
+					if( validate()) {
+						// VALUES ARE INVALID SO DO NOT CONTINUE	
+						return;
+					}					
+					var row = $("#txtRow").val();
+					var add = false;
+					// IF ROW VALUE IS EMPTY THEN ITS ADD									
+					if(row === undefined || row === ""){
+						row = dataSet.length;
+						add = true;
+					}					
+
+					// REFORMAT DATE									
+					var dateVal = $("#txtDate").val();
+					var ret = validateAndgetdate(dateVal);				 
+					// SET NEW VALUES									
+					var array = [$("#txtHours").val(), $("#txtType").val(), ret["dateStr"] ];
+
+					if(add){
+						// IF ADD PUSH ROW TO THE END
+						origDataSet.push(array);
+					}else{
+						// IF NOT ADD - MODIFY existing row.
+						origDataSet[row] = array;								 
+					}	
+					// RESET Global variables dataSet, userObject
+					resetDataSet();							 
+					// FN TO RESET DATA & RECREATE AND CREATE DATATABLE.								 
+					reloadData();
+					// CLEAR DATA IN FORM
+					formClear();
+				}	
+		// END FUNCTIONS FOR FORM RELATED ACTIVITY			
+		// FUNCTIONS FOR DATATABLE ICONs
+				// MAIN FUNCTION TO HANDLE ICONS CLICKED
+				function handleClick(type, row){
+						console.log(' TYPE ---------- ' + type);
+						const vals = dataSet[row];
+						console.log(vals);
+						// IF EDIT ICON CLICKED POPULATE THE FORM
+						if(type === 'edit'){
+							$("#txtRow").val(row);
+							$("#txtHours").val(vals[0]);
+							$("#txtType").val(vals[1]);							
+							$("#txtDate").val(vals[2]);
+							$("#txtDelete").val(vals[3]);
+							$("#txtEdit").val(vals[4]);
+						}
+						// IF DELETE ICON CLICKED REMOVE SELECTED ROW and RESET DATA
+						if(type === 'delete'){
+							origDataSet.splice(row, 1);
+							resetDataSet();	
+							reloadData();
+							formClear();
+						}	
+				}
+		// END OF FUNCTIONS FOR DATATABLE ICONs
+
+
+		</script>
+	</head>
+	<body>
+		<div id="header" class="center">
+			
+			<div id="title"> 
+				<img  id="logo" src="IMAGES/FBLA.jpg" alt="Item added" > 
+				Community Service for <span id="name"></span> (ID: <span id="id"></span>)
+			<br>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+
+		<br><br>
+		<table id="example" class="display" width="100%">
+		</table>
+
+		<div id="subtitle" > 
+			<hr/>
+			<div id="subtitleText" > Add/Edit</div>
+			<hr/>
+		</div>
+		<div class="center"> 
+			<form id="frmCadastre">
+				<table>
+					<input id="txtRow" name="txtRow" type="hidden">				
+					<input id="txtEdit" name="txtEdit" type="hidden">				
+					<input id="txtDelete" name="txtDelete" type="hidden">				
+					<tr>
+						<td><label for="txtHours">Hours:</label></td>
+						<td><input type="number" id="txtHours" /></td> 
+						<td>
+							<span class="error" id="errorHours" > </span>
+						</td> 							
+					</tr>
+					<tr>
+						<td><label for="txtDate">Date:</label></td>
+						<td><input type="date" id="txtDate" style="width:160px;"/></td> 
+						<td>
+							<span class="error" id="errorDate" > </span>
+						</td> 							
+					</tr>
+					<tr>
+						<td><label for="txtType">Type:</label></td>
+						<td>
+							<!-- <input type="text" id="txtGrade" /> -->
+							<select id="txtType" >
+								<option value="">Select Charity Type</option>
+								<option value="Medical">Medical</option>
+								<option value="Animal">Animal</option>
+								<option value="School">School</option>
+							  </select>							
+						</td> 
+						<td>
+							<span class="error" id="errorType" > </span>
+						</td> 							
+					</tr>
+					<tr>											
+						<td><input type="button" value="Save" id="btnSave" class="button" onclick="saveData()"/></td> 
+						<td><input type="button" value="Clear" id="btnClear" class="buttonclear button" onclick="formClear()"/></td> 
+					</tr>
+				</table>
+			</form>
+		</div> 
+		<hr/>		
+
+
+
+	</body>	
+</html>

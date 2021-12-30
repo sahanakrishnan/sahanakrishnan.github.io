@@ -36,7 +36,16 @@ table.dataTable {
 }
 
 div#header {
-    background-color: #053861;
+    background-color: #131f4c;
+}
+mark {
+    background-color: #8FCACA;
+    color: black;
+}
+
+markk {
+    background-color: #8196a7;
+    color: black;
 }
 
 img#logo {
@@ -68,9 +77,19 @@ button#csv {
     background-color:#036b37;
 }
 
+dt.fontSize {
+    font-size: medium;
+    font-weight: bold;
+    font-style: italic;
+}
+
+dd.font {
+    font-size: small;
+}
+
 
 body {
-    background-color: lightblue;
+    background-color: #6d81b3;
 }
 
 .center {
@@ -93,6 +112,12 @@ img.imgdetail {
     margin-top: 25px;
     margin-left: 50px;
 }
+
+#tableCentered {
+    margin-left:auto;
+    margin-right:auto;
+}
+
 div#worklist_info {
     visibility: hidden;
 }
@@ -125,7 +150,7 @@ table.printTableStyle th {
     padding: 8px;
     border-style: solid;
     border-color: #666666;
-    background-color: #053861;
+    background-color:#8196a7;
     color: white;
     font-weight: bold;
     font-size: 15px;
@@ -144,10 +169,10 @@ table.printTableStyle td {
     text-align: center;
 }
 table.printTableStyle td.odd {
-    background-color: #a3ccd9;
+    background-color: #f0f5f7;
 }
 table.printTableStyle td.even {
-    background-color: #add8e6;
+    background-color: #b3d4d9;
 }
 div#printTitle {
     font-size: 20px;

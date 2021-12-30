@@ -1,32 +1,123 @@
 <html>
-	<head>
-		<script src="JS/jquery-1.12.3.js"></script>
-		<script src="JS/jquery.dataTables.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="CSS/jquery.dataTables.min.css"/>
-		<link rel="stylesheet" type="text/css" href="CSS/webpage.css"/>
-		
-		<script>
-		
+
+<head>
+	<script src="JS/jquery-1.12.3.js"></script>
+	<script src="JS/jquery.dataTables.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="CSS/jquery.dataTables.min.css" />
+	<link rel="stylesheet" type="text/css" href="CSS/webpage.css" />
+	<style>
+		table,
+		th,
+		td {
+			border: 1px solid grey;
+			border-collapse: collapse;
+		}
+	</style>
+
+	<script>
+
 	</script>
-	</head>
-	<body>
-		<div id="header" class="center">
-			
-			<div id="title"> 
-				<img  id="logo" src="IMAGES/FBLA.jpg" alt="Item added" > 
-				Sahana Krishnan's Webpage
-				<div id="print"> 
+</head>
 
-				</div>
-					
-			<br>
+<body style="text-align:center;">
+	<div id="header" class="center">
+
+		<div id="title">
+			Sahana Krishnan's Resume
+			<div id="print">
+
 			</div>
-			<div style="clear: both;"></div>
-		</div>
 
-		<br><br>
-		<div id="body" >
+			<br>
 		</div>
+		<div style="clear: both;"></div>
+	</div>
 
-	</body>
+	<br><br>
+	<div id="body">
+		<h2><markk>Resume in Table format</markk></h2>
+
+		<p>Here lays my resume in a table format using HTML.</p>
+		<hr style="color:blue; border-color:transparent; background-color:blue">
+		<br>
+		<h3><mark>TECHNICAL SKILLS </mark></h3>
+		<dl>
+			<dt class ="fontSize">Languages</dt>
+			<dd class = "font">- Java, Python, JavaScript, HTML/CSS, MATLAB</dd>
+			<dt class ="fontSize">Frameworks</dt>
+			<dd class = "font">- React, Node.js</dd>
+			<dt class ="fontSize">Developer Tools</dt>
+			<dd class = "font">- Git, VS Code, Visual Studio, IntelliJ, Eclipse, BlueJ</dd>
+		</dl>
+		<br>
+		<h3><mark>EDUCATION</mark></h3>
+
+		<table class="printTableStyle" id="tableCentered" style="width:50%">
+			<tr>
+				<th>School</th>
+				<th>Diploma</th>
+				<th>Location</th>
+				<th>Date</th>
+			</tr>
+			<tr>
+				<td class="odd">Georgia Institute of Technology</td>
+				<td class="odd">Bachelor of Science in Computer Science</td>
+				<td class="odd">Atlanta, GA</td>
+				<td class="odd">Aug. 2021 -- May 2025</td>
+			</tr>
+			<tr>
+				<td class="even">South Forsyth High School</td>
+				<td class="even">High School Diploma</td>
+				<td class="even">Cumming, GA</td>
+				<td class="even">Aug. 2017 -- May 2021</td>
+			</tr>
+		</table>
+		<br>
+		<h3><mark>EXPERIENCE</mark></h3>
+
+		<table class="printTableStyle" id="tableCentered" style="width:50%">
+			<tr>
+				<th>Job</th>
+				<th>Position</th>
+				<th>Description</th>
+				<th>Date</th>
+			</tr>
+			<tr>
+				<td class="odd">Code Cubbies</td>
+				<td class="odd">Programming Instructor</td>
+				<td class="odd">Instructed K-12 students on how to program using various programming languages including
+					Python, Java, HTML, and Javascript.</td>
+				<td class="odd">June 2020 -- August 2021</td>
+			</tr>
+			<tr>
+				<td class="even">Siemens Energy</td>
+				<td class="even">Assistant Test Technician</td>
+				<td class="even">Installed and setup T3000(Siemens Power Plant Control System.</td>
+				<td class="even">Aug. 2020 -- May. 2021</td>
+			</tr>
+		</table>
+
+		<br>
+		<h3><mark>PROJECTS</mark></h3>
+
+		<table class="printTableStyle" id="tableCentered" style="width:50%">
+			<tr>
+				<th>Project Name</th>
+				<th>Languages used</th>
+				<th>Description</th>
+				<th>Date</th>
+			</tr>
+			<tr>
+				<td class="odd">Student Management System</td>
+				<td class="odd">HTML, Javascript, CSS, JQUERY, JQUERY Data Tables</td>
+				<td class="odd">Developed a web application for students to observe and manipulate their community
+					service hours.</td>
+				<td class="odd">Feb 2020</td>
+			</tr>
+		</table>
+		<br>
+	</div>
+
+</body>
+
 </html>

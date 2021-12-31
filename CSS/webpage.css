@@ -62,6 +62,11 @@ div#subtitle {
     font-size: 20px;
     font-weight: bold;
 } 
+div#contactinfo {
+    font-size: 20px;
+    font-weight: bold;
+
+} 
 div#print {
 	color:#FFFFFF;
 	font-size:27px;
